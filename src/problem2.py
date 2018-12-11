@@ -3,8 +3,8 @@ PRACTICE Exam 1, problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Valerie Galluzzi, Mark Hays, Amanda Stouder, Aaron Wilkin,
-         their colleagues, and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues, and Hannah Meisner.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -102,8 +102,23 @@ def problem2a(circle, rectangle, window):
       :type rectangle: rg.Rectangle
       :type window:    rg.RoseWindow
     """
+    circle.attach_to(window)
+    rectangle.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+
+    line = rg.Line(rectangle.get_upper_right_corner(), rectangle.get_lower_left_corner())
+    line.arrow = 'last'
+    line.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+
+    circle.fill_color = rectangle.outline_color
+    circle.attach_to(window)
+    window.render()
+
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -173,8 +188,31 @@ def problem2b(rect, n, delta, win):
       :type delta:  int
       :type win:    rg.RoseWindow
     """
+    w = rect.get_width()
+    h = rect.get_height()
+
+    rect.attach_to(win)
+
+    corner1 = rect.corner_1
+    corner2 = rect.corner_2
+
+    for k in range(n-1):
+        w = rect.get_width() + delta
+        h = rect.get_height() + delta
+
+        corner1 = rg.Point(rect.get_upper_right_corner().x + (w - rect.get_width()), rect.get_upper_right_corner().y -
+                           (h - rect.get_height()))
+        corner2 = rg.Point(rect.get_lower_left_corner().x - (w - rect.get_width()), rect.get_lower_left_corner().y +
+                           (h - rect.get_height()))
+
+        rect = rg.Rectangle(corner1, corner2)
+        rect.attach_to(win)
+
+    win.render()
+
+
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
